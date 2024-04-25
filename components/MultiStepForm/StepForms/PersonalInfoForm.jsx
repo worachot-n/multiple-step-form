@@ -5,8 +5,16 @@ import NavButtons from "@/components/FormInputs/NavButtons";
 import SelectInput from "@/components/FormInputs/SelectInput";
 import TextInput from "@/components/FormInputs/TextInput";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setCurrentStep,
+  updateFormData,
+} from "@/redux/slices/onboardingStudentsSlice";
 
 export default function PersonalInfoForm() {
+  const currentStep = useSelector((store) => store.onboarding.currentStep);
+  const formData = useSelector((store) => store.onboarding.formData);
+  console.log(formData, currentStep);
   const [loading, setLoading] = useState(false);
   const gender = [
     {
@@ -24,9 +32,21 @@ export default function PersonalInfoForm() {
     watch,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      ...formData,
+    },
+  });
+  const dispatch = useDispatch();
   async function processData(data) {
-    console.log(data);
+    // All Data is Valid
+    // Collect all the data
+    // Update Data in the Global State
+    dispatch(updateFormData(data));
+    // Save the Data also in DB
+    // Updata the Current Step
+    dispatch(setCurrentStep(currentStep + 1));
+    // console.log(data);
   }
   return (
     <form className="px-12 py-4" onSubmit={handleSubmit(processData)}>

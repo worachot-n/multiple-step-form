@@ -1,10 +1,12 @@
+import { setCurrentStep } from "@/redux/slices/onboardingStudentsSlice";
 import { ChevronLast, ChevronLeft, ChevronRight } from "lucide-react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 export default function NavButtons() {
-  const currentStep = 1;
+  const currentStep = useSelector((store) => store.onboarding.currentStep);
+  const dispatch = useDispatch();
   function handlePrevious() {
-    console.log("handlePrevious");
+    dispatch(setCurrentStep(currentStep - 1));
   }
   return (
     <div className="flex justify-between items-center">

@@ -1,5 +1,6 @@
 import StepForm from "@/components/MultiStepForm/StepForm";
 import Steps from "@/components/MultiStepForm/Steps";
+import React from "react";
 
 const StudentOnboardingPage = () => {
   const steps = [
